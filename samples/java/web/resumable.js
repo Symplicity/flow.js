@@ -252,6 +252,8 @@
         } else {
           input = document.createElement('input');
           input.setAttribute('type', 'file');
+          input.setAttribute('aria-label', 'Hidden input');
+          input.setAttribute('aria-hidden', 'true');
           dn.style.display = 'inline-block';
           dn.style.position = 'relative';
           input.style.position = 'absolute';
