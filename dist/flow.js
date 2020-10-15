@@ -389,6 +389,11 @@
         } else {
           input = document.createElement('input');
           input.setAttribute('type', 'file');
+          //add title and id for Accessibility
+          input.setAttribute('title', 'file-upload');
+          input.setAttribute('id', 'flowupload');
+          input.setAttribute('aria-label', 'Hidden input');
+          input.setAttribute('aria-hidden', 'true');
           // display:none - not working in opera 12
           extend(input.style, {
             visibility: 'hidden',
@@ -937,9 +942,16 @@
      */
     bootstrap: function () {
       if (typeof this.flowObj.opts.initFileFn === "function") {
-        this.flowObj.opts.initFileFn(this);
+        var ret = this.flowObj.opts.initFileFn(this);
+        if (ret && 'then' in ret) {
+          ret.then(this._bootstrap.bind(this));
+          return;
+        }
       }
+      this._bootstrap();
+    },
 
+    _bootstrap: function () {
       this.abort(true);
       this.error = false;
       // Rebuild stack of chunks from file

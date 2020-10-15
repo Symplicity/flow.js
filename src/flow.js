@@ -389,6 +389,11 @@
         } else {
           input = document.createElement('input');
           input.setAttribute('type', 'file');
+          //add title and id for Accessibility
+          input.setAttribute('title', 'file-upload');
+          input.setAttribute('id', 'flowupload');
+          input.setAttribute('aria-label', 'Hidden input');
+          input.setAttribute('aria-hidden', 'true');
           // display:none - not working in opera 12
           extend(input.style, {
             visibility: 'hidden',
